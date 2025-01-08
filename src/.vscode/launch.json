@@ -9,7 +9,7 @@
       "type": "node",
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}\\src\\dist\\apps\\cli\\main.js",
+      "program": "${workspaceFolder}\\dist\\apps\\cli\\main.js",
       "args": [],
       "outFiles": ["${workspaceFolder}/**/*.js"]
     }

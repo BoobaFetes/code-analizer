@@ -3,11 +3,18 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "deploy": "nx run cli:build --configuration=production",
-    "build": "nx run cli:build --configuration=development"
+    "deploy": "nx run cli:build:production",
+    "build": "nx run cli:build:development"
   },
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "commander": "^13.0.0",
+    "dotenv": "^16.4.7",
+    "inversify": "^6.2.1",
+    "mediatr-ts": "^2.0.1",
+    "reflect-metadata": "^0.2.2",
+    "shelljs": "^0.8.5"
+  },
   "devDependencies": {
     "@eslint/js": "^9.8.0",
     "@nx/esbuild": "20.3.1",
@@ -29,6 +36,7 @@
     "@swc/jest": "~0.2.36",
     "@types/jest": "^29.5.12",
     "@types/node": "~18.16.9",
+    "@types/shelljs": "^0.8.15",
     "babel-jest": "^29.7.0",
     "esbuild": "^0.19.2",
     "eslint": "^9.8.0",
@@ -48,10 +56,6 @@
     "verdaccio": "^5.0.4",
     "webpack-cli": "^5.1.4"
   },
-  "workspaces": [
-    "libs/*",
-    "apps/*"
-  ],
   "nx": {
     "includedScripts": []
   }
