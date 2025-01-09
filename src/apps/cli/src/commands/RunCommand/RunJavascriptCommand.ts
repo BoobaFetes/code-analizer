@@ -21,6 +21,7 @@ export class RunJavascriptCommand implements ICommand {
       .argument('[paths...]', 'paths to analyse');
 
     command.action(async (paths: string[] = []) => {
+      console.group('run javascript analyser');
       const response = await mediator.send(
         new JavascriptAnalyserRequest(paths)
       );
@@ -36,14 +37,15 @@ export class RunJavascriptCommand implements ICommand {
         });
       }
 
-      this.consoleAdapter.log('files');
-      if (!response.errors.length) {
+      this.consoleAdapter.log(`files : ${response.responses.length}`);
+      if (!response.responses.length) {
         this.consoleAdapter.log('- no files');
       } else {
-        response.responses.forEach((file) => {
-          this.consoleAdapter.log(`- ${file}`);
+        response.responses.forEach((response) => {
+          this.consoleAdapter.log(`- ${response.file}`);
         });
       }
+      console.groupEnd();
     });
   }
 }

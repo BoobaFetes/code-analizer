@@ -32,6 +32,7 @@ export class JavascriptAnalyserHandler
     const response = new JavascriptAnalyserResponse();
     const ref: IExtractPathRef = { paths, errors: [] };
 
+    console.log('extracts files');
     // extract valid paths
     const validPaths = this.pathSelector.execute(ref, {
       directory: [
@@ -51,6 +52,7 @@ export class JavascriptAnalyserHandler
     response.add(...ref.errors);
 
     // analyse the folders and files
+    console.log('analysing javascript/typecript');
     await this.executeAnalysis(response, validPaths);
 
     return response;
@@ -60,8 +62,6 @@ export class JavascriptAnalyserHandler
     response: JavascriptAnalyserResponse,
     paths: string[]
   ) {
-    console.log('analysing javascript/typecript');
-
     // pas de parrallelisme pour le moment cela va compliquer le code !!
     // idées pour le parallélisme:
     // - worker_threads (node js > 10.5)
