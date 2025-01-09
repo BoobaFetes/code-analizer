@@ -16,7 +16,7 @@
         "bundle": false,
         "main": "apps/cli/src/main.ts",
         "tsConfig": "apps/cli/tsconfig.app.json",
-        "assets": ["apps/cli/src/assets"],
+        "assets": ["apps/cli/assets/**/*"],
         "generatePackageJson": true,
         "esbuildOptions": {
           "sourcemap": true,
@@ -26,9 +26,7 @@
         }
       },
       "configurations": {
-        "development": {
-          "watch": true
-        },
+        "development": {},
         "production": {
           "esbuildOptions": {
             "sourcemap": false,
@@ -39,7 +37,6 @@
         }
       }
     },
-
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",

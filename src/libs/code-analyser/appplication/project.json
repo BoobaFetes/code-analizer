@@ -1,0 +1,34 @@
+{
+  "name": "@code-analyser/appplication",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/code-analyser/appplication/src",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "generatorOptions": {
+        "packageRoot": "dist/{projectRoot}",
+        "currentVersionResolver": "git-tag"
+      }
+    }
+  },
+  "tags": ["application"],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/code-analyser/appplication",
+        "main": "libs/code-analyser/appplication/src/index.ts",
+        "tsConfig": "libs/code-analyser/appplication/tsconfig.lib.json",
+        "format": ["cjs"],
+        "assets": ["libs/code-analyser/appplication/*.md"],
+        "generatePackageJson": true
+      }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    }
+  }
+}

@@ -1,35 +1,28 @@
-import {
-  IConsoleAdapter,
-  IFileSystemAdapter,
-  IShellAdapter,
-  resolveDependencyInjection,
-  TYPES,
-} from '@code-analizer/application';
-import {
-  ConsoleAdapter,
-  FileSystemAdapter,
-  ShellAdapter,
-} from '@code-analizer/infrastructure';
+import 'dotenv/config';
+
+import { resolveApplicationDependencies } from '@code-analyser/appplication';
+import { resolveInfrastructureDependencies } from '@code-analyser/infrastructure';
 import { Command } from 'commander';
-import dotenv from 'dotenv';
-import { setCommands } from './commands';
+import { Container } from 'inversify';
+import { RunCommand } from './commands';
+import { PresenterTypes, resolvePresenterDependencies } from './dependencies';
 
-// arrange
-resolveDependencyInjection((container) => {
-  container.bind<IConsoleAdapter>(TYPES.IConsoleAdapter).to(ConsoleAdapter);
-  container
-    .bind<IFileSystemAdapter>(TYPES.IFileSystemAdapter)
-    .to(FileSystemAdapter);
-  container.bind<IShellAdapter>(TYPES.IShellAdapter).to(ShellAdapter);
-});
-dotenv.config();
+const container = new Container();
+resolveInfrastructureDependencies(container);
+resolveApplicationDependencies(container);
+resolvePresenterDependencies(container);
 
-// act
-try {
-  const cli = new Command();
-  cli.name('code-analizer').version('0.0.1').description('Code analizer CLI');
-  setCommands(cli);
-  cli.parse(process.argv);
-} catch (e) {
-  console.error(e);
-}
+const program = new Command();
+
+program
+  .version('0.0.1')
+  .description('An example CLI for demonstration purposes')
+  .option('-d, --debug', 'output extra debugging')
+  .option('-p, --port <number>', 'port number', '3000');
+
+container.get<RunCommand>(PresenterTypes.RunCommand).build(program);
+
+program.parse(process.argv);
+
+const options = program.opts();
+if (options.debug) console.log(options);

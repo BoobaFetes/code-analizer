@@ -6,10 +6,12 @@ npx create-nx-workspace@latest --pm=yarn --name=src --preset=apps --nxCloud=skip
 set-location ./src
 
 yarn nx add @nx/node
-yarn nx g @nx/node:application apps/cli --name=cli --bundler=webpack --framework=none --tags=presenter --linter=eslint --unitTestRunner=jest --e2eTestRunner=none
+yarn nx g @nx/node:application@nx/node:application --directory=apps/cli --linter=eslint --name=cli --unitTestRunner=jest --tags=presenter --no-interactive
 
-yarn nx generate @nx/js:library --useProjectJson=true --publishable=true --bundler=rollup --linter=eslint --unitTestRunner=jest --directory=libs/code-analizer/application --name=@code-analizer/application --importPath=@code-analizer/application --tags=application
-yarn nx generate @nx/js:library --useProjectJson=true --publishable=true --bundler=rollup --linter=eslint --unitTestRunner=jest --directory=libs/code-analizer/domain --name=@code-analizer/domain --importPath=@code-analizer/domain --tags=domain
-yarn nx generate @nx/js:library --useProjectJson=true --publishable=true --bundler=rollup --linter=eslint --unitTestRunner=jest --directory=libs/code-analizer/infrastructure --name=@code-analizer/infrastructure --importPath=@code-analizer/infrastructure --tags=infrastructure
 
+yarn nx @nx/js:library --directory=libs/code-analyser/application --bundler=esbuild --importPath=@code-analyser/application --linter=eslint --name=@code-analyser/application --publishable=true --unitTestRunner=jest --includeBabelRc=true --tags=application --useProjectJson=true --no-interactive
+
+yarn nx @nx/js:library --directory=libs/code-analyser/infrastructure --bundler=esbuild --importPath=@code-analyser/infrastructure --linter=eslint --name=@code-analyser/infrastructure --publishable=true --unitTestRunner=jest --includeBabelRc=true --tags=infrastructure --useProjectJson=true --no-interactive
+
+yarn nx @nx/js:library --directory=libs/code-analyser/domain --bundler=esbuild --importPath=@code-analyser/domain --linter=eslint --name=@code-analyser/domain --publishable=true --unitTestRunner=jest --includeBabelRc=true --tags=domain --useProjectJson=true --no-interactive
 ```

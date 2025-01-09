@@ -5,7 +5,6 @@
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
-    "resolveJsonModule": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
@@ -16,12 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@code-analizer/application": [
-        "libs/code-analizer/application/src/index.ts"
+      "@code-analyser/appplication": [
+        "libs/code-analyser/appplication/src/index.ts"
       ],
-      "@code-analizer/domain": ["libs/code-analizer/domain/src/index.ts"],
-      "@code-analizer/infrastructure": [
-        "libs/code-analizer/infrastructure/src/index.ts"
+      "@code-analyser/domain": ["libs/code-analyser/domain/src/index.ts"],
+      "@code-analyser/infrastructure": [
+        "libs/code-analyser/infrastructure/src/index.ts"
       ]
     }
   },

@@ -1,0 +1,34 @@
+{
+  "name": "@code-analyser/infrastructure",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/code-analyser/infrastructure/src",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "generatorOptions": {
+        "packageRoot": "dist/{projectRoot}",
+        "currentVersionResolver": "git-tag"
+      }
+    }
+  },
+  "tags": ["infrastructure"],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/code-analyser/infrastructure",
+        "main": "libs/code-analyser/infrastructure/src/index.ts",
+        "tsConfig": "libs/code-analyser/infrastructure/tsconfig.lib.json",
+        "format": ["cjs"],
+        "assets": ["libs/code-analyser/infrastructure/*.md"],
+        "generatePackageJson": true
+      }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    }
+  }
+}

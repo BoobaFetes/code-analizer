@@ -1,0 +1,34 @@
+{
+  "name": "@code-analyser/domain",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/code-analyser/domain/src",
+  "projectType": "library",
+  "release": {
+    "version": {
+      "generatorOptions": {
+        "packageRoot": "dist/{projectRoot}",
+        "currentVersionResolver": "git-tag"
+      }
+    }
+  },
+  "tags": ["domain"],
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/code-analyser/domain",
+        "main": "libs/code-analyser/domain/src/index.ts",
+        "tsConfig": "libs/code-analyser/domain/tsconfig.lib.json",
+        "format": ["cjs"],
+        "assets": ["libs/code-analyser/domain/*.md"],
+        "generatePackageJson": true
+      }
+    },
+    "nx-release-publish": {
+      "options": {
+        "packageRoot": "dist/{projectRoot}"
+      }
+    }
+  }
+}
