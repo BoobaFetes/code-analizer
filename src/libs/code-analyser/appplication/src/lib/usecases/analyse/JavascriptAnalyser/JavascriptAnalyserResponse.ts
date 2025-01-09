@@ -1,4 +1,4 @@
-import { AnalyseError, AnalyserResponseFile } from '../AnalyserResponseFile';
+import { AnalyseError, AnalyserResponseFile } from '@code-analyser/domain';
 
 export class JavascriptAnalyserResponse {
   public readonly files: AnalyserResponseFile[];
@@ -20,7 +20,7 @@ export class JavascriptAnalyserResponse {
     this.files = files;
   }
 
-  public add(file: AnalyserResponseFile): void {
-    this.files.push(file);
+  public add(...files: AnalyserResponseFile[]): void {
+    this.files.push(...files);
   }
 }

@@ -3,4 +3,5 @@ export const ApplicationTypes = {
   FileSystemAdapter: Symbol.for('FileSystemAdapter'),
 
   Asset: Symbol.for('Asset'),
+  ValidPathExtractor: Symbol.for('ValidPathExtractor'),
 };
