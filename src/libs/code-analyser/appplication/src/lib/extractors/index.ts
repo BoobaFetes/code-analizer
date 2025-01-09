@@ -1,1 +1,1 @@
-export * from './ValidPathExtractor';
+export * from './PathSelector';

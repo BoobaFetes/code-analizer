@@ -40,7 +40,7 @@ export class RunJavascriptCommand implements ICommand {
       if (!response.errors.length) {
         this.consoleAdapter.log('- no files');
       } else {
-        response.files.forEach((file) => {
+        response.responses.forEach((file) => {
           this.consoleAdapter.log(`- ${file}`);
         });
       }

@@ -110,8 +110,12 @@ export class FileSystemAdapter implements IFileSystemAdapter {
     directoryPath: string,
     encoding: 'utf8' | 'base64' = 'utf8',
     recurse = false
-  ): string[] {
+  ): string[] | undefined {
     try {
+      if (!this.isDirectory(directoryPath)) {
+        return undefined;
+      }
+
       const items = fs.readdirSync(directoryPath, { encoding });
       const files: string[] = [];
 
@@ -119,7 +123,7 @@ export class FileSystemAdapter implements IFileSystemAdapter {
         const fullPath = path.join(directoryPath, item);
         if (this.isDirectory(fullPath)) {
           if (recurse) {
-            files.push(...this.getFiles(fullPath, encoding, true));
+            files.push(...(this.getFiles(fullPath, encoding, true) || []));
           }
         } else if (this.isFile(fullPath)) {
           files.push(fullPath);

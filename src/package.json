@@ -5,6 +5,8 @@
   "scripts": {},
   "private": true,
   "dependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/types": "^7.26.3",
     "commander": "^13.0.0",
     "dotenv": "^16.4.7",
     "inversify": "^6.2.1",

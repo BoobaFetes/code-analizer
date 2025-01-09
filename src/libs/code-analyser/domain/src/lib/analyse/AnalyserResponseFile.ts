@@ -1,4 +1,5 @@
 import { AnalyseError } from './AnalyseError';
+import { AnalyseViolationError } from './AnalyseViolationError';
 
 export class AnalyserResponseFile {
   public readonly file: string;
@@ -9,12 +10,14 @@ export class AnalyserResponseFile {
     this.errors = errors;
   }
 
-  public addErrors(...errors: AnalyseError[]): void {
+  public addError(...errors: AnalyseError[]): void {
     this.errors.push(...errors);
   }
-  public addError(error: AnalyseError): void {
-    this.errors.push(error);
+
+  public addViolation(...violations: AnalyseViolationError[]): void {
+    this.errors.push(...violations);
   }
+
   public clearErrors(): void {
     this.errors.splice(0);
   }

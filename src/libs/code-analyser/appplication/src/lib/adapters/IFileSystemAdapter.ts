@@ -11,7 +11,7 @@ export interface IFileSystemAdapter {
     directoryPath: string,
     encoding?: 'utf8' | 'base64',
     recurse?: boolean
-  ): string[];
+  ): string[] | undefined;
   getFilesAsync(
     directoryPath: string,
     encoding?: 'utf8' | 'base64',
