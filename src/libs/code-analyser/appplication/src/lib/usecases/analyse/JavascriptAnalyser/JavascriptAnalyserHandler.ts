@@ -1,10 +1,6 @@
 import { inject, injectable } from 'inversify';
 import { requestHandler, RequestHandler } from 'mediatr-ts';
-import {
-  IConsoleAdapter,
-  IFileSystemAdapter,
-  IShellAdapter,
-} from '../../../adapters';
+import { IConsoleAdapter, IFileSystemAdapter } from '../../../adapters';
 import { Asset } from '../../../Asset';
 import { ApplicationTypes } from '../../../dependencies';
 import { AnalyseError, AnalyserResponseFile } from '../AnalyserResponseFile';
@@ -24,8 +20,6 @@ export class JavascriptAnalyserHandler
 {
   @inject(ApplicationTypes.Asset)
   private asset!: Asset;
-  @inject(ApplicationTypes.ShellAdapter)
-  private shellAdapter!: IShellAdapter;
   @inject(ApplicationTypes.FileSystemAdapter)
   private fileSystemAdapter!: IFileSystemAdapter;
   @inject(ApplicationTypes.ConsoleAdapter)
@@ -37,30 +31,26 @@ export class JavascriptAnalyserHandler
     // arrange
     const response = new JavascriptAnalyserResponse();
     const ref: IExtractPathRef = { paths };
-    const validPaths: string[] = [];
 
-    // extract valid paths
-
-    this.extractGitFolders(ref).forEach((git) => {
-      // arrange
-      const cloneDirectory = path.join(
-        this.asset.temp,
-        path.basename(git, '.git')
+    // create error for git repository paths
+    this.extractGitFolders(ref).forEach((path) => {
+      response.add(
+        new AnalyserResponseFile(path, [
+          new AnalyseError(
+            'ENOTDIR',
+            'git repository are not allowed, clone it first by yourself'
+          ),
+        ])
       );
-
-      // action : set location
-      this.shellAdapter.setLocation(this.asset.temp);
-
-      // action : clone repository
-      this.consoleAdapter.log(`cloning ${git}`);
-      this.shellAdapter.execute(`git clone ${git}`);
-
-      // action : fill files from clone directory
-      validPaths.push(...this.fileSystemAdapter.getFiles(cloneDirectory));
     });
 
-    validPaths.push(...this.extractFolders(ref), ...this.extractFiles(ref));
+    // analyse the folders and files
+    this.executeAnalysis(response, [
+      ...this.extractFolders(ref),
+      ...this.extractFiles(ref),
+    ]);
 
+    // create error for unexpected paths
     ref.paths.forEach((path) => {
       response.add(
         new AnalyserResponseFile(path, [
@@ -68,8 +58,6 @@ export class JavascriptAnalyserHandler
         ])
       );
     });
-
-    this.executeAnalysis(response, validPaths);
 
     return Promise.resolve<JavascriptAnalyserResponse>(response);
   }
