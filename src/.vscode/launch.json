@@ -9,7 +9,7 @@
       "args": [
         "run",
         "js",
-        "C:\\Users\\hyper\\source\\repos\\github\\smart-commander\\src",
+        "C:\\Users\\hyper\\source\\repos\\github\\smart-commander\\src\\dist",
         "C:\\Users\\hyper\\source\\repos\\github\\smart-commander\\src - Copie\\apps\\cli\\src\\cli.ts"
       ],
       "preLaunchTask": "cli:build:development",

@@ -44,7 +44,7 @@ export class JavascriptAnalyserHandler
           return !path.includes('node_modules');
         },
         (path) => {
-          return path.endsWith('.js') || path.endsWith('.ts');
+          return path.endsWith('.js');
         },
       ],
     });
